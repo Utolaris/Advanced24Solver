@@ -38,10 +38,9 @@ public class Main {
         List<int[]> combinations = allCombinations();
         int workerCount = configuredWorkerCount();
 
-        // NOTE: 使用自定义线程池控制并发核心数
-        ForkJoinPool customThreadPool = new ForkJoinPool(workerCount);
+        // NOTE: 使用自定义线程池控制并发核心数，try-with-resources 确保线程池自动关闭
         List<Record> records;
-        try {
+        try (ForkJoinPool customThreadPool = new ForkJoinPool(workerCount)) {
             records = customThreadPool.submit(() ->
                 combinations.parallelStream().map(cards -> {
                     String expression = Solver.solveCards(cards);
@@ -54,8 +53,6 @@ public class Main {
                     );
                 }).collect(Collectors.toList())
             ).join();
-        } finally {
-            customThreadPool.shutdown();
         }
         
         // 按照卡牌数组排序

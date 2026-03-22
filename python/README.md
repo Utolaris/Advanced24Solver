@@ -20,16 +20,18 @@ uv add cython
 
 ## 运行方式
 
-先编译扩展：
+仓库统一使用 `benchmark.sh` 作为正式测速入口：
 
 ```bash
-uv run python setup.py build_ext --inplace
+./benchmark.sh
 ```
 
-再执行主程序：
+这个脚本会从启动命令开始计时，执行 `uv run python main.py`，并在扩展缺失时自动触发 `build_ext --inplace`。
+
+测速时建议连续执行 6 轮，并忽略前 2 轮：
 
 ```bash
-uv run python main.py
+for i in {1..6}; do ./benchmark.sh; done
 ```
 
 执行结束后，会在项目根目录生成 `results.json`。

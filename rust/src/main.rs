@@ -74,7 +74,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         combinations.len(),
         output_path.file_name().and_then(|name| name.to_str()).unwrap_or("results.json")
     );
-    println!("总耗时: {:.6} 秒", start.elapsed().as_secs_f64());
+    if std::env::var("A24_SUPPRESS_INTERNAL_TIMING").as_deref() != Ok("1") {
+        println!("总耗时: {:.6} 秒", start.elapsed().as_secs_f64());
+    }
 
     Ok(())
 }

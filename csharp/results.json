@@ -1,7 +1,7 @@
 {
   "metadata": {
     "target": 24,
-    "tolerance": 1e-6,
+    "tolerance": 1E-06,
     "worker_count": 8,
     "combination_count": 1820
   },

@@ -21,5 +21,13 @@ cargo test
 ## 运行
 
 ```bash
-cargo run --release
+./benchmark.sh
+```
+
+`benchmark.sh` 会从脚本启动开始计时；如果 `target/release/advanced24solver_rust` 不存在，或源码比产物更新，会先自动执行一次 `cargo build --release`，随后运行求解器并输出统一口径的 `总耗时`。
+
+测速时建议连续执行 6 轮，并忽略前 2 轮：
+
+```bash
+for i in {1..6}; do ./benchmark.sh; done
 ```

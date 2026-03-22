@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib
 import json
 import math
+import os
 import subprocess
 import sys
 import time
@@ -96,7 +97,8 @@ def main() -> None:
     write_results(merged)
     elapsed = time.perf_counter() - start
     print(f"完成 {len(combinations)} 种组合计算，结果已写入 {RESULTS_PATH.name}")
-    print(f"总耗时: {elapsed:.6f} 秒")
+    if os.environ.get("A24_SUPPRESS_INTERNAL_TIMING") != "1":
+        print(f"总耗时: {elapsed:.6f} 秒")
 
 
 if __name__ == "__main__":
